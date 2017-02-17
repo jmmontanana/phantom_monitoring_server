@@ -255,21 +255,37 @@ router.post('/:id', function(req, res, next) {
     var body = req.body;
     body['@timestamp'] = dateFormat(new Date(), "yyyy-mm-dd'T'HH:MM:ss.l");
 
-    client.index({
+    /*check if given workflow exists */
+    client.get({
         index: 'mf',
-        type: 'experiments',
-        parent: id,
-        body: body
-    },function(error, response) {
-        if (error) {
-            res.json(error);
-        } else {
-            var json = {};
-            json[response._id] = {};
-            json[response._id].href = mf_server + '/mf/experiments/' + response._id + '?workflow=' + id;
+        type: 'workflows',
+        id: id
+    }, function(err, result) {
+        if (err) {
+            res.status(500);
+            return next(err);
+        }
+        /*if the workflow can be found */
+        if(result !== undefined) {
+            client.index({
+                index: 'mf',
+                type: 'experiments',
+                parent: id,
+                body: body
+            },function(error, response) {
+                if (error) {
+                    res.json(error);
+                } else {
+                    res.send(response._id);
+                }
+            });
+        }
+        /*if no such workflow is found */
+        else {
+            json.error = "No workflow as " + id +" is found";
             res.json(json);
         }
-    });
+    }); 
 });
 
 module.exports = router;

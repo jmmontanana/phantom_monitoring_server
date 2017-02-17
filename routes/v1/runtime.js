@@ -96,7 +96,7 @@ router.get('/:workID/:expID', function(req, res, next) {
                         index: resource,
                         type: experiment,
                         size: 1,
-                        sort: ["@timestamp:asc"],
+                        sort: ["local_timestamp:asc"],
                     }, function(err, result) {
                         var start;
                         var end;
@@ -110,7 +110,7 @@ router.get('/:workID/:expID', function(req, res, next) {
                                 var keys = Object.keys(only_results);
                                 keys.forEach(function(key) {
                                     var metric_data = only_results[key]._source;
-                                    start = metric_data['@timestamp'];
+                                    start = metric_data['local_timestamp'];
                                     start = start.replace(/\s/g, '0');
                                     if (new Date(start) < new Date(earliest_start)) {
                                         earliest_start = start;
@@ -123,7 +123,7 @@ router.get('/:workID/:expID', function(req, res, next) {
                             index: resource,
                             type: experiment,
                             size: 1,
-                            sort: ["@timestamp:desc"],
+                            sort: ["local_timestamp:desc"],
                         }, function(err, result) {
                             var hostname;
 
@@ -137,7 +137,7 @@ router.get('/:workID/:expID', function(req, res, next) {
                                     keys.forEach(function(key) {
                                         var metric_data = only_results[key]._source;
                                         host = metric_data.host;
-                                        end = metric_data['@timestamp'];
+                                        end = metric_data['local_timestamp'];
                                         end = end.replace(/\s/g, '0');
                                         if (new Date(end) > new Date(latest_end)) {
                                             latest_end = end;
@@ -224,7 +224,7 @@ router.get('/:workID/:taskID/:expID', function(req, res, next) {
         index: index,
         type: experiment,
         size: 1,
-        sort: ["@timestamp:asc"],
+        sort: ["local_timestamp:asc"],
     }, function(err, result) {
         var start;
         var end;
@@ -240,7 +240,7 @@ router.get('/:workID/:taskID/:expID', function(req, res, next) {
                 var keys = Object.keys(only_results);
                 keys.forEach(function(key) {
                     var metric_data = only_results[key]._source;
-                    start = metric_data['@timestamp'];
+                    start = metric_data['local_timestamp'];
                     start_original = start;
                     start = start.replace(/\s/g, '0');
                     start = new Date(start);
@@ -253,7 +253,7 @@ router.get('/:workID/:taskID/:expID', function(req, res, next) {
             index: index,
             type: experiment,
             size: 1,
-            sort: ["@timestamp:desc"],
+            sort: ["local_timestamp:desc"],
         }, function(err, result) {
             var host;
             var response;
@@ -267,7 +267,7 @@ router.get('/:workID/:taskID/:expID', function(req, res, next) {
                     keys.forEach(function(key) {
                         var metric_data = only_results[key]._source;
                         host = metric_data.host;
-                        end = metric_data['@timestamp'];
+                        end = metric_data['local_timestamp'];
                         end_original = end;
                         end = end.replace(/\s/g, '0');
                         end = new Date(end);

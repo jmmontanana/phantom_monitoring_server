@@ -76,6 +76,9 @@ router.post('/', function(req, res, next) {
         data[i].server_timestamp = dateFormat(new Date(), "yyyy-mm-dd'T'HH:MM:ss.l");
         if(data[i].local_timestamp == undefined) {
           data[i].local_timestamp = data[i].server_timestamp;
+        } else {
+          var tmp_value = parseInt(data[i].local_timestamp);
+          data[i].local_timestamp = dateFormat(new Date(tmp_value), "yyyy-mm-dd'T'HH:MM:ss.l");
         }
 
         action.index._index = index.toLowerCase();

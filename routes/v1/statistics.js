@@ -297,37 +297,46 @@ function handle_response(req, res, next, index, type) {
                 res.json(error);
                 return;
             }
-            var metrics = [],
-                answers = [];
-            if (typeof(metric) == "string") {
-                metrics[0] = metric;
-            }
             else {
-                metrics = metric;
-            }
-            for (var key in metrics) {
-                var answer = {},
-                    aggs = response.aggregations;
-                answer['workflow'] = {};
-                answer['workflow'].href = mf_server + '/workflows/' + workflowID;
-                answer['metric'] = metrics[key];
+                if(response.aggregations !== undefined) {
+                    var metrics = [],
+                        answers = [];
+                    if (typeof(metric) == "string") {
+                        metrics[0] = metric;
+                    }
+                    else {
+                        metrics = metric;
+                    }
+                    for (var key in metrics) {
+                        var answer = {},
+                            aggs = response.aggregations;
+                        answer['workflow'] = {};
+                        answer['workflow'].href = mf_server + '/workflows/' + workflowID;
+                        answer['metric'] = metrics[key];
 
-                if (is_defined(from) && is_defined(to)) {
-                    aggs = aggs['filtered_stats'];
-                }
-                if(aggs['Minimum_' + metrics[key]]['hits']['total'] == 0) {
-                        var json = {};
-                        json.error = "response is empty for the metric";
-                        answers.push(json);
+                        if (is_defined(from) && is_defined(to)) {
+                            aggs = aggs['filtered_stats'];
+                        }
+                        if(aggs['Minimum_' + metrics[key]]['hits']['total'] == 0) {
+                                var json = {};
+                                json.error = "response is empty for the metric";
+                                answers.push(json);
+                        }
+                        else {
+                            answer['statistics'] = aggs[metrics[key] + '_Stats'];
+                            answer['min'] = aggs['Minimum_' + metrics[key]]['hits']['hits'][0]['_source'];
+                            answer['max'] = aggs['Maximum_' + metrics[key]]['hits']['hits'][0]['_source'];
+                            answers.push(answer);
+                        }
+                    }
+                    res.json(answers);        
                 }
                 else {
-                    answer['statistics'] = aggs[metrics[key] + '_Stats'];
-                    answer['min'] = aggs['Minimum_' + metrics[key]]['hits']['hits'][0]['_source'];
-                    answer['max'] = aggs['Maximum_' + metrics[key]]['hits']['hits'][0]['_source'];
-                    answers.push(answer);
+                    var json = {};
+                    json.error = "index " + index +" is not found in DB";
+                    res.json(json);
                 }
             }
-            res.json(answers);
         });
     });
 }
@@ -370,7 +379,7 @@ function date_filter(from, to) {
         filter =
             '{ ' +
                 '"range": {' +
-                    '"@timestamp": {' +
+                    '"local_timestamp": {' +
                         '"from": "' + from + '",' +
                         '"to": "' + to + '"' +
                     '}' +
