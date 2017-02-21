@@ -12,7 +12,7 @@ var router = express.Router();
  * @apiParam {String} experimentID Experiment identifer of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/runtime/ms2/AVZ-5cqVGYwmTvCuSqZC
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/runtime/ms2/AVZ-5cqVGYwmTvCuSqZC
  *
  * @apiSuccess {String} start start timestamp of the experiment
  * @apiSuccess {String} end end timestamp of the experiment
@@ -188,7 +188,7 @@ router.get('/:workID/:expID', function(req, res, next) {
  * @apiParam {String} expID Experiment identifer of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/mf/runtime/hpcfapix/vector_scal01/AVSbT0ChGMPeuCn4QYjq
+ *     curl -i http://mf.excess-project.eu:3040/v1/mf/runtime/hpcfapix/vector_scal01/AVSbT0ChGMPeuCn4QYjq
  *
  * @apiSuccess {String} start start timestamp of the experiment
  * @apiSuccess {String} end end timestamp of the experiment

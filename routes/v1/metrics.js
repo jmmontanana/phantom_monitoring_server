@@ -19,7 +19,7 @@ var router = express.Router();
  * @apiParam (body) {String} metric value of the metric
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/metrics
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/metrics
  *
  * @apiParamExample {json} Request-Example:
  *     [
@@ -47,8 +47,8 @@ var router = express.Router();
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     [
- *       "http://mf.excess-project.eu:3030/v1/mf/profiles/ms2/t2.1/AVUWnydqGMPeuCn4l-cj",
- *       "http://mf.excess-project.eu:3030/v1/mf/profiles/ms2/t2.2/AVNXMXcvGMPeuCn4bMe0"
+ *       "http://mf.excess-project.eu:3040/v1/mf/profiles/ms2/t2.1/AVUWnydqGMPeuCn4l-cj",
+ *       "http://mf.excess-project.eu:3040/v1/mf/profiles/ms2/t2.2/AVNXMXcvGMPeuCn4bMe0"
  *     ]
  *
  * @apiError DatabaseError Elasticsearch specific error message.
@@ -122,7 +122,7 @@ router.post('/', function(req, res, next) {
  * @apiParam (body) {String} metric value of the metric
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/metrics/ms2/AVNXMXcvGMPeuCn4bMe0?task=t2.1
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/metrics/ms2/AVNXMXcvGMPeuCn4bMe0?task=t2.1
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -139,7 +139,7 @@ router.post('/', function(req, res, next) {
  *     HTTP/1.1 200 OK
  *     {
  *       "AVXt3coOz5chEwIt8_Ma": {
- *         "href": "http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/vector_scal01/AVNXMXcvGMPeuCn4bMe0"
+ *         "href": "http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01/AVNXMXcvGMPeuCn4bMe0"
  *       }
  *     }
  *
@@ -175,7 +175,7 @@ router.post('/:workflowID/:taskID/:experimentID', function(req, res, next) {
                 var options = {
                     host: 'localhost',
                     path: '/' + index,
-                    port: 9200,
+                    port: 9400,
                     method: 'PUT',
                     headers: headers
                 };

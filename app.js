@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var os = require("os");
 var elasticsearch = require('elasticsearch');
 var elastic = new elasticsearch.Client({
-  host: 'localhost:9200',
+  host: 'localhost:9400',
   log: 'error'
 });
 
@@ -37,7 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('elastic', elastic);
 app.set('version', '02.02.17');
-var port = '3030',
+var port = '3040',
   hostname = os.hostname();
 // redirect backend hostname to front-end
 //hostname = hostname.replace('be.excess-project.eu', 'mf.excess-project.eu');

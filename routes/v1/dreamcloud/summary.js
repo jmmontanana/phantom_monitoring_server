@@ -14,7 +14,7 @@ var dateFormat = require('dateformat');
  * @apiParam {String} platformID identifier for a given platform, e.g. 'excesscluster' or 'laptop'
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/summary/ms2/t2.1/excesscluster
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/summary/ms2/t2.1/excesscluster
  *
  * @apiSuccess {String} experiment_id identifier for an experiment
  * @apiSuccess {String} workflow_id identifier for the workflow
@@ -354,7 +354,7 @@ router.get('/:workflow/:task/:platform', function(req, res, next) {
  * @apiParam {String} deploymentID identifier (= hashvalue) of a given deployment plan
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/summary/ms2/t2.1/test_cluster/4e165a82309000fd5a6ab20c097b2e9f2ba5216d
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/summary/ms2/t2.1/test_cluster/4e165a82309000fd5a6ab20c097b2e9f2ba5216d
  *
  * @apiSuccess {String} experiment_id identifier for an experiment
  * @apiSuccess {String} workflow_id identifier for the workflow

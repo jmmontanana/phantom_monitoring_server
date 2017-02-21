@@ -11,7 +11,7 @@ var async = require('async');
  * @apiParam {String} workflowID identifer of a workflow
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix
+ *     curl -i http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix
  *
  * @apiSuccess {Object} taskID identifier of a registered task
  * @apiSuccess {Object} taskID.experimentID identifier of an experiment
@@ -22,18 +22,18 @@ var async = require('async');
  *     {
  *       "vector_scal01":{
  *          "AVSf5_wVGMPeuCn4Qdw2":{
- *                "href":"http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/vector_scal01/AVSf5_wVGMPeuCn4Qdw2"
+ *                "href":"http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01/AVSf5_wVGMPeuCn4Qdw2"
  *          },
  *          "AVSf-mU4GMPeuCn4Qd0L":{
- *                "href":"http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/vector_scal01/AVSf-mU4GMPeuCn4Qd0L"
+ *                "href":"http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01/AVSf-mU4GMPeuCn4Qd0L"
  *          }
  *       },
  *       "mfnode01":{
  *          "AVXAMB5FLeaeU4rxyi3w":{
- *                "href":"http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/mfnode01/AVXAMB5FLeaeU4rxyi3w"
+ *                "href":"http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/mfnode01/AVXAMB5FLeaeU4rxyi3w"
  *          },
  *          "AVVT4dhwenoRsEhyDkeb":{
- *                "href":"http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/mfnode01/AVVT4dhwenoRsEhyDkeb"
+ *                "href":"http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/mfnode01/AVVT4dhwenoRsEhyDkeb"
  *          }
  *       }
  *     }
@@ -133,7 +133,7 @@ function isEmpty(obj) {
  * @apiParam {String} taskID identifier of a registered task
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/vector_scal01
+ *     curl -i http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01
  *
  * @apiSuccess {Object} date date, when the task is registered
  * @apiSuccess {Object} date.experimentID identifier of an experiment
@@ -144,18 +144,18 @@ function isEmpty(obj) {
  *     {
  *       "2016-05-11":{
  *          "AVSf5_wVGMPeuCn4Qdw2":{
- *                "href":"http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/vector_scal01/AVSf5_wVGMPeuCn4Qdw2"
+ *                "href":"http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01/AVSf5_wVGMPeuCn4Qdw2"
  *          },
  *          "AVSf-mU4GMPeuCn4Qd0L":{
- *                "href":"http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/vector_scal01/AVSf-mU4GMPeuCn4Qd0L"
+ *                "href":"http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01/AVSf-mU4GMPeuCn4Qd0L"
  *          }
  *       },
  *       "2016-05-10":{
  *          "AVXAMB5FLeaeU4rxyi3w":{
- *                "href":"http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/vector_scal01/AVXAMB5FLeaeU4rxyi3w"
+ *                "href":"http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01/AVXAMB5FLeaeU4rxyi3w"
  *          },
  *          "AVVT4dhwenoRsEhyDkeb":{
- *                "href":"http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/vector_scal01/AVVT4dhwenoRsEhyDkeb"
+ *                "href":"http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01/AVVT4dhwenoRsEhyDkeb"
  *          }
  *       }
  *     }
@@ -252,7 +252,7 @@ router.get('/:workID/:taskID', function(req, res, next) {
  * @apiParam {String} experimentID identifier of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/mf/profiles/hpcfapix/vector_scal01/AVSbT0ChGMPeuCn4QYjq
+ *     curl -i http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01/AVSbT0ChGMPeuCn4QYjq
  *
  * @apiSuccess {Object} Metrics measurements based on a system
  * @apiSuccess {String} Metrics.timestamp timestamp, when the metric data is collected

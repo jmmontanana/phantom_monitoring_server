@@ -9,25 +9,25 @@ var router = express.Router();
  * @apiGroup Resources
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/resources
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/resources
  *
  * @apiParamExample {json} Request-Example:
  *     {
  *        "alexlaptop": {
- *           "href": "http://mf.excess-project.eu:3030/v1/dreamcloud/mf/resources/alexlaptop"
+ *           "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/resources/alexlaptop"
  *        },
  *        "amitlaptop": {
- *           "href": "http://mf.excess-project.eu:3030/v1/dreamcloud/mf/resources/amitlaptop"
+ *           "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/resources/amitlaptop"
  *        },
  *        "excesscluster": {
- *           "href": "http://mf.excess-project.eu:3030/v1/dreamcloud/mf/resources/excesscluster"
+ *           "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/resources/excesscluster"
  *        }
  *     }
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *        "href": "http://mf.excess-project.eu:3030/v1/dreamcloud/mf/resources"
+ *        "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/resources"
  *     }
  *
  * @apiError InternalSeverError No results found.
@@ -115,7 +115,7 @@ function get_resource(mf_server, results) {
  * @apiGroup Resources
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/resources/excesscluster
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/resources/excesscluster
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -149,7 +149,7 @@ function get_resource(mf_server, results) {
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *        "href": "http://mf.excess-project.eu:3030/v1/dreamcloud/mf/resources/excesscluster"
+ *        "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/resources/excesscluster"
  *     }
  *
  * @apiError InternalServerError Likely to be caused by an error while inserting data into the database.
@@ -187,7 +187,7 @@ router.get('/:id', function(req, res, next) {
  * @apiGroup Resources
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/resources/excesscluster
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/resources/excesscluster
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

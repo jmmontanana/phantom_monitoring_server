@@ -15,7 +15,7 @@ var skip_fields = [ '@timestamp', 'type', 'host' ];
  * @apiParam {String} experimentID identifier for an experiment, e.g. 'AVQa1RU0GMPeuCn4_2S_'
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/energy/ms2/AVQa1RU0GMPeuCn4_2S_
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/energy/ms2/AVQa1RU0GMPeuCn4_2S_
  *
  * @apiSuccess {Array}  taskID identifier for a task of the given workflow
  * @apiSuccess {String} taskID.timestamp timestamp when the measurement was taken
@@ -290,7 +290,7 @@ router.get('/:workflowID/:experimentID', function(req, res, next) {
  * @apiParam {String} experimentID identifier for an experiment, e.g. 'AVX'
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3030/v1/dreamcloud/mf/energy/ms2/t2.1/AVQa1RU0GMPeuCn4_2S_
+ *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/energy/ms2/t2.1/AVQa1RU0GMPeuCn4_2S_
  *
  * @apiSuccess {Array}  taskID identifier for a task of the given workflow
  * @apiSuccess {String} taskID.timestamp timestamp when the measurement was taken
