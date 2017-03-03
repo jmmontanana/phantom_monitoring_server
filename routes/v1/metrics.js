@@ -4,6 +4,69 @@ var http = require('http');
 var async = require('async');
 var router = express.Router();
 
+/* get all available metrics */
+router.get('/:workflowID/:taskID/:experimentID', function(req, res, next) {
+    var client = req.app.get('elastic'),
+      workflow = req.params.workflowID.toLowerCase(),
+      task = req.params.taskID.toLowerCase(),
+      experiment = req.params.experimentID,
+      size = 100,
+      json = [];
+
+    var data = {},
+      metrics = {},
+      index = workflow + '_' + task;
+    
+    client.search({
+        index: index,
+        type: experiment,
+        size: size
+    }, function (error, response) {
+        if(error) {
+            res.status(500);
+            return next(error);
+        }
+      if(response.hits !== undefined) {
+          var results = response.hits.hits,
+            keys = Object.keys(results),
+            items = {};
+
+          /* filter keys like local_timestamp, server_timestamp, host, task, and type */
+          keys.forEach(function (key) {
+              items = results[key]._source;
+              delete items.local_timestamp;
+              delete items.server_timestamp;
+              delete items.host;
+              delete items.task;
+              delete items.TaskID;
+              delete items.type;
+              for (var item in items) {
+                  metrics[item] = item;
+              }
+          });
+      }
+
+      async.each(metrics, function(metric, inner_callback) {
+          client.search({
+              index: index,
+              type: experiment,
+              searchType: 'count',
+              body: aggregation_by(metric)
+            }, function(error, response) {
+              if (error) {
+                inner_callback(null);
+              }
+              var aggs = response.aggregations;
+                data[metric] = aggs[metric + '_Stats'];
+              inner_callback(null);
+            });
+          }, function() {
+            json.push(data);
+            res.json(json);
+      });
+    });
+});
+
 /**
  * @api {post} /metrics 2. Update multiple metrics at once (bulk query)
  * @apiVersion 1.0.0
@@ -320,5 +383,49 @@ var bodyString =
       '}' +
    '}' +
 '}';
+
+function aggregation_by(field_name) {
+    return '{' +
+        '"aggs": {' +
+            '"' + field_name + '_Stats" : {' +
+                '"stats" : {' +
+                    '"field" : "' + field_name + '"' +
+                '}' +
+            '},' +
+            '"Minimum_' + field_name + '": {' +
+                '"top_hits": {' +
+                    '"size": 1,' +
+                    '"sort": [' +
+                        '{' +
+                            '"' + field_name + '": {' +
+                                '"order": "asc"' +
+                            '}' +
+                        '}' +
+                    ']' +
+                '}' +
+            '},' +
+            '"Maximum_' + field_name + '": {' +
+                '"top_hits": {' +
+                    '"size": 1,' +
+                    '"sort": [' +
+                        '{' +
+                            '"' + field_name + '": {' +
+                                '"order": "desc"' +
+                            '}' +
+                        '}' +
+                    ']' +
+                '}' +
+            '}' +
+        '}' +
+    '}';
+}
+
+function isEmpty(obj) {
+  for(var key in obj) {
+    if(obj.hasOwnProperty(key))
+      return false;
+  }
+  return true;
+}
 
 module.exports = router;

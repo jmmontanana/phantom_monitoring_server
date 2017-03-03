@@ -1,4 +1,5 @@
 var express = require('express');
+var dateFormat = require('dateformat');
 var router = express.Router();
 var async = require('async');
 
@@ -302,14 +303,38 @@ router.get('/:workID/:taskID/:expID', function(req, res, next) {
       task = req.params.taskID.toLowerCase(),
       experiment = req.params.expID,
       filter = req.query.filter,
+      from = req.query.from,
+      to = req.query.to,
       size = 1000,
       json = [];
 
     var index = workflow + '_' + task;
 
+    /* if from or to timestamps are not given:
+       get the metrics in the last 5 minutes */
+    if (!is_defined(from) || !is_defined(to)) {
+        time_now = new Date();
+        to = dateFormat(time_now, "yyyy-mm-dd'T'HH:MM:ss.l");
+        from = dateFormat(new Date(time_now.valueOf() - 5 * 60000), "yyyy-mm-dd'T'HH:MM:ss.l"); // from is 5 minutes before to
+    }
+
+    var body = '{"query": {' +
+                '"filtered": {' +
+                    '"filter": {' +
+                        '"range": {' + 
+                            '"local_timestamp": {' + 
+                                '"from": "' + from + '",' + 
+                                '"to": "' + to + '"' +
+                                '}' +
+                            '}' + 
+                        '}' +
+                    '}' +
+                '}}';
+
     client.search({
         index: index,
         type: experiment,
+        body: body,
         searchType: 'count'
     }, function(error, response) {
         if (error) {
@@ -323,6 +348,7 @@ router.get('/:workID/:taskID/:expID', function(req, res, next) {
         client.search({
             index: index,
             type: experiment,
+            body: body,
             size: size
         }, function(error, response) {
             if (error) {
