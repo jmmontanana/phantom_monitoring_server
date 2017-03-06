@@ -86,6 +86,7 @@ sleep 10
 #
 # INSTALL NODE AND NPM and setup the environment
 #
+cd ${BASE_DIR}
 NODE_DIR=${DIST_DIR}/nodejs/bin
 NODE_BIN=${NODE_DIR}/node
 NPM_BIN=${DIST_DIR}/nodejs/bin/npm
