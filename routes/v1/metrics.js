@@ -110,8 +110,8 @@ router.get('/:workflowID/:taskID/:experimentID', function(req, res, next) {
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     [
- *       "http://mf.excess-project.eu:3040/v1/mf/profiles/ms2/t2.1/AVUWnydqGMPeuCn4l-cj",
- *       "http://mf.excess-project.eu:3040/v1/mf/profiles/ms2/t2.2/AVNXMXcvGMPeuCn4bMe0"
+ *       "http://mf.excess-project.eu:3040/v1/phantom_mf/profiles/ms2/t2.1/AVUWnydqGMPeuCn4l-cj",
+ *       "http://mf.excess-project.eu:3040/v1/phantom_mf/profiles/ms2/t2.2/AVNXMXcvGMPeuCn4bMe0"
  *     ]
  *
  * @apiError DatabaseError Elasticsearch specific error message.
@@ -202,7 +202,7 @@ router.post('/', function(req, res, next) {
  *     HTTP/1.1 200 OK
  *     {
  *       "AVXt3coOz5chEwIt8_Ma": {
- *         "href": "http://mf.excess-project.eu:3040/v1/mf/profiles/hpcfapix/vector_scal01/AVNXMXcvGMPeuCn4bMe0"
+ *         "href": "http://mf.excess-project.eu:3040/v1/phantom_mf/profiles/hpcfapix/vector_scal01/AVNXMXcvGMPeuCn4bMe0"
  *       }
  *     }
  *

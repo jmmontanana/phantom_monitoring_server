@@ -22,13 +22,13 @@ var router = express.Router();
  *     HTTP/1.1 200 OK
  *     {
  *       "AVZ-ll9FGYwmTvCuSnjW": {
- *          "href": "http://mf.excess-project.eu:3040/v1/mf/experiments/AVZ-ll9FGYwmTvCuSnjW?workflow=ms2"
+ *          "href": "http://mf.excess-project.eu:3040/v1/phantom_mf/experiments/AVZ-ll9FGYwmTvCuSnjW?workflow=ms2"
  *       },
  *       "AVZ-kZTjGYwmTvCuSnZV": {
- *          "href": "http://mf.excess-project.eu:3040/v1/mf/experiments/AVZ-kZTjGYwmTvCuSnZV?workflow=ms2"
+ *          "href": "http://mf.excess-project.eu:3040/v1/phantom_mf/experiments/AVZ-kZTjGYwmTvCuSnZV?workflow=ms2"
  *       },
  *       "AVZ-j2hEGYwmTvCuSnVE": {
- *          "href": "http://mf.excess-project.eu:3040/v1/mf/experiments/AVZ-j2hEGYwmTvCuSnVE?workflow=ms2"
+ *          "href": "http://mf.excess-project.eu:3040/v1/phantom_mf/experiments/AVZ-j2hEGYwmTvCuSnVE?workflow=ms2"
  *       },
  *       ...
  *     }
@@ -67,7 +67,7 @@ router.get('/', function(req, res, next) {
                 var results = response.hits.hits;
                 json = get_details(results);
             } else {
-                json.error = error;
+                json.error = "No experiment is found";
             }
             res.json(json);
         });
@@ -218,7 +218,7 @@ router.get('/:id', function(req, res, next) {
  * @apiParam {String} workflowID identifier for the workflow for which the experiment shall be created, e.g. 'ms2'
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/mf/experiments/ms2
+ *     curl -i http://mf.excess-project.eu:3040/v1/phantom_mf/experiments/ms2
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -242,7 +242,7 @@ router.get('/:id', function(req, res, next) {
  *     HTTP/1.1 200 OK
  *     {
  *       "AVXt3coOz5chEwIt8_Ma": {
- *         "href": "http://mf.excess-project.eu:3040/v1/mf/experiments/AVXt3coOz5chEwIt8_Ma?workflow=ms2"
+ *         "href": "http://mf.excess-project.eu:3040/v1/phantom_mf/experiments/AVXt3coOz5chEwIt8_Ma?workflow=ms2"
  *       }
  *     }
  *

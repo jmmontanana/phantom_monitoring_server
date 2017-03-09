@@ -55,23 +55,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /* URL paths */
 app.use('/', routes);
-app.use('/v1/mf', routes);
-app.use('/v1/mf/workflows', workflows);
-app.use('/v1/mf/experiments', experiments);
-app.use('/v1/mf/configs', configs);
-app.use('/v1/mf/metrics', metrics);
-app.use('/v1/mf/profiles', profiles);
-app.use('/v1/mf/runtime', runtime);
-app.use('/v1/mf/statistics', statistics);
+app.use('/v1/phantom_mf', routes);
+app.use('/v1/phantom_mf/workflows', workflows);
+app.use('/v1/phantom_mf/experiments', experiments);
+app.use('/v1/phantom_mf/configs', configs);
+app.use('/v1/phantom_mf/metrics', metrics);
+app.use('/v1/phantom_mf/profiles', profiles);
+app.use('/v1/phantom_mf/runtime', runtime);
+app.use('/v1/phantom_mf/statistics', statistics);
 
 /* following URL paths are TOD */
-app.use('/v1/mf/deployments', deployments);
-app.use('/v1/mf/energy', energy);
-app.use('/v1/mf/progress', progress);
-app.use('/v1/mf/report', report);
-app.use('/v1/mf/resources', resources);
-app.use('/v1/mf/status', status);
-app.use('/v1/mf/summary', summary);
+app.use('/v1/phantom_mf/deployments', deployments);
+app.use('/v1/phantom_mf/energy', energy);
+app.use('/v1/phantom_mf/progress', progress);
+app.use('/v1/phantom_mf/report', report);
+app.use('/v1/phantom_mf/resources', resources);
+app.use('/v1/phantom_mf/status', status);
+app.use('/v1/phantom_mf/summary', summary);
 
 /* catch 404 and forward to error handler */
 app.use(function(req, res, next) {
