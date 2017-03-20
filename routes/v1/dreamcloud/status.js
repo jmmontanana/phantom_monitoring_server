@@ -14,7 +14,7 @@ var router = express.Router();
  * @apiParam {String} experimentID Experiment identifer of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/ms2/AVZ_VlqVGYwmTvCuTZLX
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/ms2/AVZ_VlqVGYwmTvCuTZLX
  *
  * @apiParamExample {json} JSON-Request:
  *     {
@@ -141,12 +141,12 @@ router.get('/:workflowID/:experimentID', function(req, res, next) {
  * @apiParam {String} experimentID Experiment identifer of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/status/ms2/AVZ_VlqVGYwmTvCuTZLX
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/status/ms2/AVZ_VlqVGYwmTvCuTZLX
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/ms2/AVZ_VlqVGYwmTvCuTZLX"
+ *       "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/ms2/AVZ_VlqVGYwmTvCuTZLX"
  *     }
  *
  * @apiError DatabaseError Cannot store submitted content.

@@ -67,5 +67,5 @@ command -v ${NPM_BIN} >/dev/null 2>&1 || { echo " npm  : Not installed. Aborting
 ${NPM_BIN} install
 nohup ./bin/www >/dev/null 2>&1 &
 echo $! > ${TMP_DIR}/node.pid
-echo "Done. Server is listening on port 3040."
+echo "Done. Server is listening on port 3033."
 echo

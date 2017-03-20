@@ -13,7 +13,7 @@ var router = express.Router();
  * @apiParam {String} platformID identifier for a platform, e.g. 'excesscluster'
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster
  *
  * @apiSuccess {String} deploymentPlanID identifier for a deployment plan
  * @apiSuccess {String} deploymentPlanID.href link to the actual deployment plan
@@ -22,16 +22,16 @@ var router = express.Router();
  *     HTTP/1.1 200 OK
  *     {
  *       "cf8ba177b43e4a837c4c213f6a149ead4f1ec9ef2e976306a07711e88bf6c60c": {
- *          "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/cf8ba177b43e4a837c4c213f6a149ead4f1ec9ef2e976306a07711e88bf6c60c"
+ *          "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/cf8ba177b43e4a837c4c213f6a149ead4f1ec9ef2e976306a07711e88bf6c60c"
  *       },
  *       "e57d089e2cc396f04d277aa35c399b4a5af5b56f65682b4f4952dd7f334a2c15": {
- *          "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/e57d089e2cc396f04d277aa35c399b4a5af5b56f65682b4f4952dd7f334a2c15"
+ *          "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/e57d089e2cc396f04d277aa35c399b4a5af5b56f65682b4f4952dd7f334a2c15"
  *       },
  *       "d6d33f5097e23e55659aba9004dbeb257970926e3927a01c10ff431fe48555e9": {
- *          "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/d6d33f5097e23e55659aba9004dbeb257970926e3927a01c10ff431fe48555e9"
+ *          "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/d6d33f5097e23e55659aba9004dbeb257970926e3927a01c10ff431fe48555e9"
  *       },
  *       "79f2e72501da8a8bcff9d6cd711b44a0fe8174a751e897c51ef7a7d110b925d8": {
- *          "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/79f2e72501da8a8bcff9d6cd711b44a0fe8174a751e897c51ef7a7d110b925d8"
+ *          "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/79f2e72501da8a8bcff9d6cd711b44a0fe8174a751e897c51ef7a7d110b925d8"
  *       },
  *       ..
  *     }
@@ -103,7 +103,7 @@ router.get('/:workflow/:task/:platform', function(req, res, next) {
  * @apiParam {String} deploymentPlanID identifier for a deployment plan, e.g. 'cf8ba177b43e4a837c4c213f6a149ead4f1ec9ef2e976306a07711e88bf6c60c'
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/cf8ba177b43e4a837c4c213f6a149ead4f1ec9ef2e976306a07711e88bf6c60c
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/cf8ba177b43e4a837c4c213f6a149ead4f1ec9ef2e976306a07711e88bf6c60c
  *
  * @apiSuccess {String} [estimatedTime] estimated time to finish
  * @apiSuccess {Object} [node] aggregates information for a node the task was deployed on
@@ -189,7 +189,7 @@ router.get('/:workflow/:task/:platform/:deployment', function(req, res, next) {
  * @apiParam {String} experimentID identifier of an experiment, e.g. 'AVX123A3asd_S'
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/AVX123A3asd_S
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/deployments/ms2/t2.1/excesscluster/AVX123A3asd_S
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -238,7 +238,7 @@ router.get('/:workflow/:task/:platform/:deployment', function(req, res, next) {
  *     {
  *       "deployment_id": "da117e8171ae58b935a02a9768c21ce96ffd5f6e"
  *       "predicted_time": 2017
- *       "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/deployments/ms2/t2.1/test_cluster/da117e8171ae58b935a02a9768c21ce96ffd5f6e"
+ *       "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/deployments/ms2/t2.1/test_cluster/da117e8171ae58b935a02a9768c21ce96ffd5f6e"
  *      }
  *
  * @apiError DatabaseError Could not store given deployment plan.

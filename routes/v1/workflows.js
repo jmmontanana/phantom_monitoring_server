@@ -13,19 +13,19 @@ var router = express.Router();
  * @apiSuccess {String} :workflowID.href  Resource location of the given workflow
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/workflows
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
  *       "hpcdhopp": {
- *         "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/workflows/hpcdhopp"
+ *         "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/hpcdhopp"
  *       },
  *       "hpcdkhab": {
- *         "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/workflows/hpcdkhab"
+ *         "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/hpcdkhab"
  *       },
  *       "hpcfapix": {
- *         "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/workflows/hpcfapix"
+ *         "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/hpcfapix"
  *       }
  *     }
  *
@@ -109,7 +109,7 @@ function get_details(results) {
  * @apiParam {String} workflowID Unique workflow identifier
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/workflows/ms2
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/ms2
  *
  * @apiSuccess (body) {String} wf_id   References a registered workflow by its ID
  * @apiSuccess (body) {String} author  Author name if provided while registering a new workflow
@@ -176,7 +176,7 @@ router.get('/:id', function(req, res, next) {
  * @apiParam {String} workflowID Unique workflow identifier
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/workflows/ms2
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/ms2
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -211,7 +211,7 @@ router.get('/:id', function(req, res, next) {
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/workflows/ms2",
+ *       "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/ms2",
  *     }
  *
  * @apiError StorageError Given workflow could not be stored.

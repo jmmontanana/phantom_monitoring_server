@@ -37,7 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('elastic', elastic);
 app.set('version', '02.02.17');
-var port = '3040',
+var port = '3033',
   hostname = os.hostname();
 // redirect backend hostname to front-end
 //hostname = hostname.replace('be.excess-project.eu', 'mf.excess-project.eu');

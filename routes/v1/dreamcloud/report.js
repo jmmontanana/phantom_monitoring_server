@@ -13,7 +13,7 @@ var router = express.Router();
  * @apiParam {String} experimentID identifier of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/report/ms2/AVQ-MczMGMPeuCn4FHqi
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/report/ms2/AVQ-MczMGMPeuCn4FHqi
  *
  * @apiSuccess {Object} workflow report for a given workflow
  * @apiSuccess {String} workflow.id workflow identifier

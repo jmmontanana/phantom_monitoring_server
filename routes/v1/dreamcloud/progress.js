@@ -12,8 +12,8 @@ var router = express.Router();
  * @apiParam {String} experimentID identifier of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/progress/ms2/t2.1/AVQ-MczMGMPeuCn4FHqi
- *     curl -i http://mf.excess-project.eu:3040/v1/dreamcloud/mf/progress/ms2/t2.1/AVQ-MczMGMPeuCn4FHqi?latest
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/progress/ms2/t2.1/AVQ-MczMGMPeuCn4FHqi
+ *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/progress/ms2/t2.1/AVQ-MczMGMPeuCn4FHqi?latest
  *
  * @apiSuccess {Object} progress measurements based on a system
  * @apiSuccess {String} progress.timestamp timestamp, when the progress information was collected

@@ -14,7 +14,7 @@ var router = express.Router();
  * @apiParam {String} [to] end time of the statistics, e.g., to=2016-05-10T17:35:57.610
  *
  * @apiExample {curl} Example usage:
- *     curl -i 'http://mf.excess-project.eu:3040/v1/phantom_mf/statistics/ms2?metric=CPU0::PAPI_TOT_CYC'
+ *     curl -i 'http://mf.excess-project.eu:3033/v1/phantom_mf/statistics/ms2?metric=CPU0::PAPI_TOT_CYC'
  *
  * @apiSuccess {Object} workflow workflow-related data
  * @apiSuccess {String} workflow.href link to the stored workflow information
@@ -48,7 +48,7 @@ var router = express.Router();
  *     HTTP/1.1 200 OK
  *     {
  *        "workflow": {
- *           "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/workflows/ms2"
+ *           "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/ms2"
  *        },
  *        "metric": "CPU0::PAPI_TOT_CYC",
  *        "statistics": {
@@ -111,7 +111,7 @@ router.get('/:workflowID', function(req, res, next) {
  * @apiParam {String} [to] end time of the statistics
  *
  * @apiExample {curl} Example usage:
- *     curl -i 'http://mf.excess-project.eu:3040/v1/phantom_mf/statistics/hpcfapix/vector_scal01?metric=DRAM_POWER:PACKAGE0&metric=DRAM_POWER:PACKAGE1&host=node01&from=2016-05-10T17:35:57.610&to=2016-05-10T17:36:57.610'
+ *     curl -i 'http://mf.excess-project.eu:3033/v1/phantom_mf/statistics/hpcfapix/vector_scal01?metric=DRAM_POWER:PACKAGE0&metric=DRAM_POWER:PACKAGE1&host=node01&from=2016-05-10T17:35:57.610&to=2016-05-10T17:36:57.610'
  *
  * @apiSuccess {Object} user link to the user
  * @apiSuccess {String} metric name of the metric
@@ -124,7 +124,7 @@ router.get('/:workflowID', function(req, res, next) {
  *     [
  *        {
  *            "user":
- *                   {"href":"http://mf.excess-project.eu:3040/v1/phantom_mf/users/hpcfapix"},
+ *                   {"href":"http://mf.excess-project.eu:3033/v1/phantom_mf/users/hpcfapix"},
  *            "metric":"DRAM_POWER:PACKAGE0",
  *            "statistics":
  *                   {"count":6,
@@ -191,7 +191,7 @@ router.get('/:workflowID/:taskID', function(req, res, next) {
  * @apiParam {String} [to] end time of the statistics
  *
  * @apiExample {curl} Example usage:
- *     curl -i 'http://mf.excess-project.eu:3040/v1/phantom_mf/statistics/hpcfapix/vector_scal01/AVSbT0ChGMPeuCn4QYjq?metric=DRAM_POWER:PACKAGE0&metric=DRAM_POWER:PACKAGE1&host=node01&from=2016-05-10T17:35:57.610&to=2016-05-10T17:36:57.610'
+ *     curl -i 'http://mf.excess-project.eu:3033/v1/phantom_mf/statistics/hpcfapix/vector_scal01/AVSbT0ChGMPeuCn4QYjq?metric=DRAM_POWER:PACKAGE0&metric=DRAM_POWER:PACKAGE1&host=node01&from=2016-05-10T17:35:57.610&to=2016-05-10T17:36:57.610'
  *
  * @apiSuccess {Object} user link to the user
  * @apiSuccess {String} metric name of the metric
@@ -204,7 +204,7 @@ router.get('/:workflowID/:taskID', function(req, res, next) {
  *     [
  *        {
  *            "user":
- *                   {"href":"http://mf.excess-project.eu:3040/v1/phantom_mf/users/hpcfapix"},
+ *                   {"href":"http://mf.excess-project.eu:3033/v1/phantom_mf/users/hpcfapix"},
  *            "metric":"DRAM_POWER:PACKAGE0",
  *            "statistics":
  *                   {"count":6,

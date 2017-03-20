@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "RESTful services for the ATOM monitoring framework",
   "title": "DreamCloud RESTful API",
-  "url" : "http://mf.excess-project.eu:3040/v1/dreamcloud/mf",
+  "url" : "http://mf.excess-project.eu:3033/v1/dreamcloud/mf",
   "header": {
     "title": "DreamCloud API"
   },

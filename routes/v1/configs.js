@@ -13,7 +13,7 @@ var router = express.Router();
  * @apiSuccess {String} :platformID.[metrics_name]     Switch on/off the metric of the plugin
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/phantom_mf/configs
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/configs
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -119,7 +119,7 @@ function get_details(results) {
  * @apiParam {String} platformID Unique platform identifier
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/phantom_mf/configs/node01.excess-cluster
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/configs/node01.excess-cluster
  *
  * @apiSuccess (body) {String} status             Switch on/off the plugin
  * @apiSuccess (body) {String} sampling_interval  Sampling interval of the plugin
@@ -182,7 +182,7 @@ router.get('/:platformID', function(req, res, next) {
  * @apiParam {String} platformID Unique platform identifier
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3040/v1/phantom_mf/configs/node01.excess-cluster
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/configs/node01.excess-cluster
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -212,7 +212,7 @@ router.get('/:platformID', function(req, res, next) {
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "href": "http://mf.excess-project.eu:3040/v1/dreamcloud/mf/configs/node01.excess-cluster",
+ *       "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/configs/node01.excess-cluster",
  *     }
  *
  * @apiError StorageError Given workflow could not be stored.
