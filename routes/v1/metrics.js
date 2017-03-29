@@ -4,13 +4,66 @@ var http = require('http');
 var async = require('async');
 var router = express.Router();
 
-/* get all available metrics */
+/**
+ * @api {get} /metrics/:workflowID/:taskID/:experimentID 1. Get all sampled metrics' names and average values with given workflowID, taskID and experimentID
+ * @apiVersion 1.0.0
+ * @apiName GetMetrics
+ * @apiGroup Metrics
+ *
+ * @apiParam {String} workflowID        Name of the workflow
+ * @apiParam {String} taskID            Name of the task
+ * @apiParam {String} executionID       Identifier of the experiment
+ *
+ * @apiExample {curl} Example usage:
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/metrics/ms2/t1/AVNXMXcvGMPeuCn4bMe0
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     [
+ *       {
+ *         "device0:current":
+ *            {
+ *              "count":55,
+ *              "min":0,
+ *              "max":0,
+ *              "avg":0,
+ *              "sum":0
+ *            },
+ *         "device0:vbus":
+ *            {
+ *              "count":55,
+ *              "min":0,
+ *              "max":0,
+ *              "avg":0,
+ *              "sum":0
+ *            },
+ *          "device0:vshunt":
+ *            {
+ *              "count":55,
+ *              "min":0,
+ *              "max":0,
+ *              "avg":0,
+ *              "sum":0
+ *            },
+ *          "device0:power":
+ *            {
+ *              "count":55,
+ *              "min":0,
+ *              "max":0,
+ *              "avg":0,
+ *              "sum":0
+ *            }
+ *       }
+ *     ]
+ *
+ * @apiError DatabaseError Elasticsearch specific error message.
+ */
 router.get('/:workflowID/:taskID/:experimentID', function(req, res, next) {
     var client = req.app.get('elastic'),
       workflow = req.params.workflowID.toLowerCase(),
       task = req.params.taskID.toLowerCase(),
       experiment = req.params.experimentID,
-      size = 100,
+      size = 1000,
       json = [];
 
     var data = {},
@@ -68,21 +121,21 @@ router.get('/:workflowID/:taskID/:experimentID', function(req, res, next) {
 });
 
 /**
- * @api {post} /metrics 2. Update multiple metrics at once (bulk query)
+ * @api {post} /metrics 3. Send an array of metrics
  * @apiVersion 1.0.0
  * @apiName PostBulkMetrics
  * @apiGroup Metrics
  *
- * @apiParam (body) {String} WorkflowID identifier of a workflow
- * @apiParam (body) {String} ExperimentID identifier of an experiment
- * @apiParam (body) {String} [TaskID] identifier of a task, equals '_all' if not set
- * @apiParam (body) {String} [type] type of the metric, e.g. power, temperature, and so on
- * @apiParam (body) {String} [host] hostname of the system
- * @apiParam (body) {String} timestamp timestamp, when the metric is collected
- * @apiParam (body) {String} metric value of the metric
+ * @apiParam (body) {String} WorkflowID      Name of the application
+ * @apiParam (body) {String} TaskID          Name of the task
+ * @apiParam (body) {String} ExperimentID    Identifier of the experiment
+ * @apiParam (body) {String} [type]          Type of the metric, e.g. power, temperature, and so on
+ * @apiParam (body) {String} [host]          Hostname of the target platform
+ * @apiParam (body) {String} local_timestamp Local timestamp, when the metric is collected
+ * @apiParam (body) {String} metric          Name and value of the metric
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/metrics
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/metrics
  *
  * @apiParamExample {json} Request-Example:
  *     [
@@ -90,7 +143,7 @@ router.get('/:workflowID/:taskID/:experimentID', function(req, res, next) {
  *         "WorkflowID": "ms2",
  *         "ExperimentID": "AVUWnydqGMPeuCn4l-cj",
  *         "TaskID": "t2.1",
- *         "@timestamp": "2016-02-15T12:43:48.749",
+ *         "local_timestamp": "2016-02-15T12:43:48.749",
  *         "type": "power",
  *         "host": "node01.excess-project.eu",
  *         "GPU1:power": "168.519"
@@ -98,7 +151,7 @@ router.get('/:workflowID/:taskID/:experimentID', function(req, res, next) {
  *         "WorkflowID": "ms2",
  *         "ExperimentID":"AVNXMXcvGMPeuCn4bMe0",
  *         "TaskID": "t2.2",
- *         "@timestamp": "2016-02-15T12:46:48.524",
+ *         "local_timestamp": "2016-02-15T12:46:48.524",
  *         "type": "power",
  *         "host": "node01.excess-project.eu",
  *         "GPU0:power": "152.427"
@@ -161,7 +214,7 @@ router.post('/', function(req, res, next) {
         }
         var json = [];
         for (var i in response.items) {
-            json.push(mf_server + '/mf/profiles/' +
+            json.push(mf_server + '/phantom_mf/profiles/' +
               response.items[i].create._index.replace('_all', '/all') +
               '/' + response.items[i].create._type);
         }
@@ -170,39 +223,38 @@ router.post('/', function(req, res, next) {
 });
 
 /**
- * @api {post} /metrics/:workflowID/:experimentID 1. Update a single metric
+ * @api {post} /metrics/:workflowID/:taskID/:experimentID 2. Send a metric with given workflow ID, task ID, and experiment ID
  * @apiVersion 1.0.0
  * @apiName PostMetric
  * @apiGroup Metrics
  *
- * @apiParam {String} workflowID identifier of a workflow
- * @apiParam {String} experimentID identifier of an experiment
- * @apiParam {String} [taskID] identifier for a given task; equals '_all' if not set
- *
- * @apiParam (body) {String} [type] type of the metric, e.g. power
- * @apiParam (body) {String} [host] hostname of the system
- * @apiParam (body) {String} timestamp timestamp, when the metric is collected
- * @apiParam (body) {String} metric value of the metric
+ * @apiParam {String} WorkflowID              Name of the application
+ * @apiParam {String} TaskID                  Name of the task
+ * @apiParam {String} ExperimentID            Identifier of the experiment
+ * @apiParam (body) {String} [type]           Type of the metric, e.g. power, temperature, and so on
+ * @apiParam (body) {String} [host]           Hostname of the target platform
+ * @apiParam (body) {String} local_timestamp  Local timestamp, when the metric is collected
+ * @apiParam (body) {String} metric           Name and value of the metric
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/metrics/ms2/AVNXMXcvGMPeuCn4bMe0?task=t2.1
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/metrics/ms2/t1/AVNXMXcvGMPeuCn4bMe0
  *
  * @apiParamExample {json} Request-Example:
  *     {
  *       "type": "power",
- *       "host": "fe.excess-project.eu",
- *       "@timestamp": "2016-02-15T12:42:22.000",
+ *       "host": "node01.excess-project.eu",
+ *       "local_timestamp": "2016-02-15T12:42:22.000",
  *       "GPU0:power": "152.427"
  *     }
  *
- * @apiSuccess {Object} metricID identifier of the sent metric
- * @apiSuccess {String} metricID.href link to the experiment with updated metrics
+ * @apiSuccess {Object} metricID       Identifier of the sent metric
+ * @apiSuccess {String} metricID.href  Link to the experiment with updated metrics
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
  *       "AVXt3coOz5chEwIt8_Ma": {
- *         "href": "http://mf.excess-project.eu:3033/v1/phantom_mf/profiles/hpcfapix/vector_scal01/AVNXMXcvGMPeuCn4bMe0"
+ *         "href": "http://mf.excess-project.eu:3033/v1/phantom_mf/profiles/ms2/t1/AVNXMXcvGMPeuCn4bMe0"
  *       }
  *     }
  *
@@ -295,7 +347,7 @@ router.post('/:workflowID/:taskID/:experimentID', function(req, res, next) {
               }
               var json = {};
               json[response._id] = {};
-              json[response._id].href = mf_server + '/mf/profiles/' + workflowID;
+              json[response._id].href = mf_server + '/phantom_mf/profiles/' + workflowID;
               if (typeof taskID !== 'undefined') {
                   json[response._id].href += '/' + taskID;
               }

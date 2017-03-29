@@ -1,8 +1,8 @@
 {
-  "name": "monitoring-api",
+  "name": "PHANTOM Monitoring API",
   "version": "1.0.0",
   "description": "RESTful service of the PHANTOM monitoring framework",
-  "title": "ATOM RESTful API",
+  "title": "PHANTOM Monitoring API",
   "url" : "http://mf.excess-project.eu:3033/v1/phantom_mf",
   "header": {
     "title": "PHANTOM Monitoring API"

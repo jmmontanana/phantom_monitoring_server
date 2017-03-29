@@ -23,15 +23,6 @@ var profiles = require('./routes/v1/profiles');
 var runtime = require('./routes/v1/runtime');
 var statistics = require('./routes/v1/statistics');
 
-/* dreamcloud: TOD change accordingly for PHANTOM */
-var deployments = require('./routes/v1/dreamcloud/deployments');
-var energy = require('./routes/v1/dreamcloud/energy');
-var progress = require('./routes/v1/dreamcloud/progress');
-var report = require('./routes/v1/dreamcloud/report');
-var resources = require('./routes/v1/dreamcloud/resources');
-var status = require('./routes/v1/dreamcloud/status');
-var summary = require('./routes/v1/dreamcloud/summary');
-
 var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -42,7 +33,7 @@ var port = '3033',
 // redirect backend hostname to front-end
 //hostname = hostname.replace('be.excess-project.eu', 'mf.excess-project.eu');
 app.set('mf_server', 'http://' + hostname + ':' + port + '/v1');
-app.set('pwm_idx', 'power_dreamcloud');
+//app.set('pwm_idx', 'power_dreamcloud');
 
 app.use(logger('combined', {
   skip: function (req, res) { return res.statusCode < 400; }

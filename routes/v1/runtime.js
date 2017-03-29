@@ -3,26 +3,27 @@ var async = require('async');
 var router = express.Router();
 
 /**
- * @api {get} /runtime/:workflowID/:experimentID 2. Get runtime information of an entire experiment
+ * @api {get} /runtime/:workflowID/:experimentID 1. Get runtime information with given workflow ID and experiment ID
  * @apiVersion 1.0.0
  * @apiName GetRuntimeByExperiment
  * @apiGroup Runtime
  *
- * @apiParam {String} workflowID identifer of a workflow
- * @apiParam {String} experimentID Experiment identifer of an experiment
+ * @apiParam {String} workflowID    Identifier of a workflow
+ * @apiParam {String} experimentID  Identifier of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/runtime/ms2/AVZ-5cqVGYwmTvCuSqZC
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/runtime/ms2/AVZ-5cqVGYwmTvCuSqZC
  *
- * @apiSuccess {String} start start timestamp of the experiment
- * @apiSuccess {String} end end timestamp of the experiment
- * @apiSuccess {String} total_runtime duration of the total experiment in seconds
- * @apiSuccess {Array}  tasks array of task-specific runtime information
- * @apiSuccess {String} tasks.task identifier of the task
- * @apiSuccess {Object} tasks.data object holding runtime data
- * @apiSuccess {String} start start timestamp of the task
- * @apiSuccess {String} end end timestamp of the stop
- * @apiSuccess {String} runtime duration of the task in seconds
+ * @apiSuccess {String} workflow           Identifier of the workflow
+ * @apiSuccess {String} start              Start local timestamp of the entire experiment
+ * @apiSuccess {String} end                End local timestamp of the entire experiment
+ * @apiSuccess {String} total_runtime      Duration of the entire experiment in seconds
+ * @apiSuccess {Array}  tasks              Array of task-specific runtime information
+ * @apiSuccess {String} tasks.task         Identifier of the task
+ * @apiSuccess {Object} tasks.data         Object holding runtime data of the task
+ * @apiSuccess {String} tasks.data.start   Start local timestamp of the task
+ * @apiSuccess {String} tasks.data.end     End local timestamp of the task
+ * @apiSuccess {String} tasks.data.runtime Duration of the task in seconds
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -178,22 +179,22 @@ router.get('/:workID/:expID', function(req, res, next) {
 });
 
 /**
- * @api {get} /runtime/:workflowID/:taskID/:experimentID 1. Request the runtime of an experiment with given workflow ID, task ID and experiment ID
+ * @api {get} /runtime/:workflowID/:taskID/:experimentID 2. Get runtime information with given workflow ID, task ID and experiment ID
  * @apiVersion 1.0.0
  * @apiName GetRuntime
  * @apiGroup Runtime
  *
- * @apiParam {String} workflowID identifer of a workflow
- * @apiParam {String} taskID identifier of a task
- * @apiParam {String} expID Experiment identifer of an experiment
+ * @apiParam {String} workflowID      Identifier of a workflow
+ * @apiParam {String} taskID          Identifier of a task
+ * @apiParam {String} experimentID    Identifier of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/runtime/hpcfapix/vector_scal01/AVSbT0ChGMPeuCn4QYjq
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/runtime/ms2/t1/AVSbT0ChGMPeuCn4QYjq
  *
- * @apiSuccess {String} start start timestamp of the experiment
- * @apiSuccess {String} end end timestamp of the experiment
- * @apiSuccess {String} runtime duration of the experiment in seconds
- * @apiSuccess {String} host hostname of the system
+ * @apiSuccess {String} start     Start timestamp of the specific task and experiment
+ * @apiSuccess {String} end       End timestamp of the specific task and experiment
+ * @apiSuccess {String} runtime   Duration of the experiment in seconds
+ * @apiSuccess {String} host      Hostname of the system
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

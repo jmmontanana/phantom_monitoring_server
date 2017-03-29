@@ -2,15 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 /**
- * @api {get} /configs 3. Request a list of configurations of all platforms
+ * @api {get} /configs 1. Get a list of configurations of all platforms
  * @apiVersion 1.0.0
  * @apiName GetConfigs
  * @apiGroup Configs
  *
- * @apiSuccess {Object} :platformID       References of a platform by its ID
- * @apiSuccess {String} :platformID.status             Switch on/off the plugin
- * @apiSuccess {String} :platformID.sampling_interval  Sampling interval of the plugin
- * @apiSuccess {String} :platformID.[metrics_name]     Switch on/off the metric of the plugin
+ * @apiSuccess {Object} platformID                    Unique platform identifier
+ * @apiSuccess {String} platformID.status             Status of the plugin (on/off)
+ * @apiSuccess {String} platformID.sampling_interval  Sampling interval of the plugin (in nanosecond)
+ * @apiSuccess {String} platformID.metrics            Name and status (on/off) of metrics of the plugin
  *
  * @apiExample {curl} Example usage:
  *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/configs
@@ -111,19 +111,19 @@ function get_details(results) {
 }
 
 /**
- * @api {get} /configs/:platformID 2. Get the configuration of monitoring plugins for a specific platform
+ * @api {get} /configs/:platformID 2. Get the configuration of a specific platform
  * @apiVersion 1.0.0
- * @apiName GetConfig
+ * @apiName GetConfigsByPlatformID
  * @apiGroup Configs
  *
- * @apiParam {String} platformID Unique platform identifier
+ * @apiParam {String} platformID                  Unique platform identifier
  *
  * @apiExample {curl} Example usage:
  *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/configs/node01.excess-cluster
  *
- * @apiSuccess (body) {String} status             Switch on/off the plugin
- * @apiSuccess (body) {String} sampling_interval  Sampling interval of the plugin
- * @apiSuccess (body) {String} [metrics_name]     Switch on/off the metric of the plugin
+ * @apiSuccess (body) {String} status             Status of the plugin (on/off)
+ * @apiSuccess (body) {String} sampling_interval  Sampling interval of the plugin (in nanosecond)
+ * @apiSuccess (body) {String} metrics            Name and status (on/off) of metrics of the plugin
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -174,12 +174,15 @@ router.get('/:platformID', function(req, res, next) {
 });
 
 /**
- * @api {put} /configs/:platformID 1. Updata the configuration of monitoring plugins for a specific platform
+ * @api {put} /configs/:platformID 3. Updata the configuration of a specific platform
  * @apiVersion 1.0.0
  * @apiName PutConfigs
  * @apiGroup Configs
  *
- * @apiParam {String} platformID Unique platform identifier
+ * @apiParam {String} platformID         Unique platform identifier
+ * @apiParam {String} status             Status of the plugin (on/off)
+ * @apiParam {String} sampling_interval  Sampling interval of the plugin (in nanosecond)
+ * @apiParam {String} metrics            Name and status (on/off) of metrics of the plugin
  *
  * @apiExample {curl} Example usage:
  *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/configs/node01.excess-cluster
@@ -203,16 +206,12 @@ router.get('/:platformID', function(req, res, next) {
  *              "CPU0:core0": "on"}
  *      }
  *
- * @apiParam {String} status             Switch on/off the plugin
- * @apiParam {String} sampling_interval  Sampling interval of the plugin
- * @apiParam {String} [metrics_name]     Switch on/off the metric of the plugin
- *
  * @apiSuccess {String} href Link to the stored configuration resource
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/configs/node01.excess-cluster",
+ *       "href": "http://mf.excess-project.eu:3033/v1/phantom_mf/configs/node01.excess-cluster",
  *     }
  *
  * @apiError StorageError Given workflow could not be stored.
@@ -236,7 +235,7 @@ router.put('/:platformID', function(req, res, next) {
         body: req.body
     }, function(error, response) {
         if (error !== 'undefined') {
-            json.href = mf_server + '/mf/configs/' + platformID;
+            json.href = mf_server + '/phantom_mf/configs/' + platformID;
         } else {
             res.status(500);
             json.error = "Could not change the configuration.";

@@ -140,6 +140,8 @@ GET /v1/phantom_mf/statistics/:application_id/:task_id/:execution_id?metric=...&
 GET /v1/phantom_mf/statistics/:application_id/:task_id/:execution_id?metric=...&host=...&from=...&to=...
 ```
 
+Please refer to the [PHANTOM Monitoring API Web page][api] to get more details.
+
 
 ## Acknowledgment
 This project is realized through [EXCESS][excess] and [PHANTOM][phantom]. EXCESS is funded by the EU 7th Framework Programme (FP7/2013-2016) under grant agreement number 611183. The PHANTOM project receives funding under the European Union's Horizon 2020 Research and Innovation Programme under grant agreement number 688146.
@@ -170,3 +172,4 @@ Copyright (C) 2014-2017 University of Stuttgart
 [client]: https://github.com/hpcfapix/phantom_monitoring_client
 [excess]: http://www.excess-project.eu
 [phantom]: http://www.phantom-project.org
+[api]: https://phantom-monitoring-framework.github.io

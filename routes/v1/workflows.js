@@ -4,28 +4,25 @@ var dateFormat = require('dateformat');
 var router = express.Router();
 
 /**
- * @api {get} /workflows 3. Request a list of registered workflows
+ * @api {get} /workflows 1. Get a list of all available workflows
  * @apiVersion 1.0.0
  * @apiName GetWorkflows
  * @apiGroup Workflows
  *
- * @apiSuccess {Object} :workflowID       References a registered workflow by its ID
- * @apiSuccess {String} :workflowID.href  Resource location of the given workflow
+ * @apiSuccess {Object} workflowID       Identifier of the workflow
+ * @apiSuccess {String} workflowID.href  Resource location of the given workflow
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/workflows
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "hpcdhopp": {
- *         "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/hpcdhopp"
+ *       "ms2": {
+ *         "href": "http://mf.excess-project.eu:3033/v1/phantom_mf/workflows/ms2"
  *       },
- *       "hpcdkhab": {
- *         "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/hpcdkhab"
- *       },
- *       "hpcfapix": {
- *         "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/hpcfapix"
+ *       "infrastructure": {
+ *         "href": "http://mf.excess-project.eu:3033/v1/phantom_mf/workflows/infrastructure"
  *       }
  *     }
  *
@@ -106,23 +103,23 @@ function get_details(results) {
  * @apiName GetWorkflow
  * @apiGroup Workflows
  *
- * @apiParam {String} workflowID Unique workflow identifier
+ * @apiParam {String} workflowID     Identifier of a workflow
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/ms2
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/workflows/ms2
  *
- * @apiSuccess (body) {String} wf_id   References a registered workflow by its ID
- * @apiSuccess (body) {String} author  Author name if provided while registering a new workflow
+ * @apiSuccess (body) {String} application     Identifier of the workflow
+ * @apiSuccess (body) {String} author          Author name if provided while registering a new workflow
  * @apiSuccess (body) {String} optimization    Optimization criterium: time, energy, balanced
- * @apiSuccess (body) {Array}  tasks   List of individual tasks the workflow is composed of
- * @apiSuccess (body) {String} tasks.name  ID of the given task (:taskID)
- * @apiSuccess (body) {String} tasks.exec  Executable for the given task
+ * @apiSuccess (body) {Array}  tasks           List of all tasks, of which the workflow is composed
+ * @apiSuccess (body) {String} tasks.name      Identifier of the task
+ * @apiSuccess (body) {String} tasks.exec      Executable for the task
  * @apiSuccess (body) {String} tasks.cores_nr  Range of CPU cores used for executing the task on
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "wf_id": "ms2",
+ *       "application": "ms2",
  *       "author": "Random Guy",
  *       "optimization": "Time",
  *       "tasks": [
@@ -145,7 +142,7 @@ function get_details(results) {
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 404 Not Found
  *     {
- *       "error": "Workflow with the ID ':workflowID' not found."
+ *       "error": "Workflow with the ID '" + workflowID + "' not found."
  *     }
  */
 router.get('/:id', function(req, res, next) {
@@ -168,19 +165,19 @@ router.get('/:id', function(req, res, next) {
 });
 
 /**
- * @api {put} /workflows/:workflowID 1. Register a new workflow with a custom ID
+ * @api {put} /workflows/:workflowID 3. Register/Update a workflow with a given workflow ID
  * @apiVersion 1.0.0
  * @apiName PutWorkflowID
  * @apiGroup Workflows
  *
- * @apiParam {String} workflowID Unique workflow identifier
+ * @apiParam {String} workflowID     Identifier of the workflow 
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/ms2
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/workflows/ms2
  *
  * @apiParamExample {json} Request-Example:
  *     {
- *       "wf_id": "ms2",
+ *       "application": "ms2",
  *       "author": "Random Guy",
  *       "optimization": "Time",
  *       "tasks": [
@@ -198,20 +195,20 @@ router.get('/:id', function(req, res, next) {
  *       ]
  *     }
  *
- * @apiParam {String} [wf_id]   References a registered workflow by its ID
- * @apiParam {String} [author]  Author name if provided while registering a new workflow
- * @apiParam {String} [optimization]    Optimization criterium: time, energy, balanced
- * @apiParam {Array}  [tasks]   List of individual tasks the workflow is composed of
- * @apiParam {String} [tasks.name]  ID of the given task (:taskID)
- * @apiParam {String} [tasks.exec]  Executable for the given task
- * @apiParam {String} [tasks.cores_nr]  Range of CPU cores used for executing the task on
- *
- * @apiSuccess {String} href Link to the stored workflow resource
+ * @apiParam (body) {String} application       Identifier of the workflow
+ * @apiParam (body) {String} author            Author name if provided while registering a new workflow
+ * @apiParam (body) {String} optimization      Optimization criterium: time, energy, balanced
+ * @apiParam (body) {Array}  tasks             List of all tasks, of which the workflow is composed
+ * @apiParam (body) {String} tasks.name        Identifier of the task
+ * @apiParam (body) {String} [tasks.exec]      Executable for the task
+ * @apiParam (body) {String} [tasks.cores_nr]  Range of CPU cores used for executing the task on
+
+ * @apiSuccess {String} href                   Link to the stored workflow resource
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "href": "http://mf.excess-project.eu:3033/v1/dreamcloud/mf/workflows/ms2",
+ *       "href": "http://mf.excess-project.eu:3033/v1/phantom_mf/workflows/ms2",
  *     }
  *
  * @apiError StorageError Given workflow could not be stored.
@@ -219,7 +216,7 @@ router.get('/:id', function(req, res, next) {
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 500 Internal Server Error
  *     {
- *       "error": "Resource could not be stored"
+ *       "error": "Could not create the workflow."
  *     }
  */
 router.put('/:id', function(req, res, next) {
@@ -235,7 +232,7 @@ router.put('/:id', function(req, res, next) {
         body: req.body
     }, function(error, response) {
         if (error !== 'undefined') {
-            json.href = mf_server + '/mf/workflows/' + id;
+            json.href = mf_server + '/phantom_mf/workflows/' + id;
         } else {
             res.status(500);
             json.error = "Could not create the workflow.";

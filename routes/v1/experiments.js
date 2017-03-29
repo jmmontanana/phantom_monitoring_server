@@ -3,7 +3,7 @@ var dateFormat = require('dateformat');
 var router = express.Router();
 
 /**
- * @api {get} /experiments 1. Returns a list of all experiment IDs
+ * @api {get} /experiments 1. Get a list of all available experiments 
  * @apiVersion 1.0.0
  * @apiName GetExperiments
  * @apiGroup Experiments
@@ -11,12 +11,10 @@ var router = express.Router();
  * @apiParam {String} [workflow] filters results by the given workflow, e.g. 'ms2'
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/experiments
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/experiments
  *
- * @apiSuccess {Array}  taskID identifier for a task of the given workflow
- * @apiSuccess {String} taskID.timestamp timestamp when the measurement was taken
- * @apiSuccess {String} taskID.type group identifier (equals plug-in name)
- * @apiSuccess {String} taskID.metric value sampled for the given metric
+ * @apiSuccess {Object} executionID       Identifier of an experiment
+ * @apiSuccess {String} executionID.href  Link to the experiment's details
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -33,7 +31,13 @@ var router = express.Router();
  *       ...
  *     }
  *
- * @apiError DatabaseError Elasticsearch specific error message.
+ * @apiError ExperimentsNotAvailable No experiments found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "No experiments found."
+ *     }
  */
 router.get('/', function(req, res, next) {
     var client = req.app.get('elastic'),
@@ -67,7 +71,7 @@ router.get('/', function(req, res, next) {
                 var results = response.hits.hits;
                 json = get_details(results);
             } else {
-                json.error = "No experiment is found";
+                json.error = "No experiments found";
             }
             res.json(json);
         });
@@ -103,82 +107,35 @@ function get_details(results) {
 }
 
 /**
- * @api {get} /experiments/:experimentID 2. Request a registered experiment with given experiment ID
+ * @api {get} /experiments/:experimentID 2. Get a registered experiment with given execution ID
  * @apiVersion 1.0.0
- * @apiName GetExperimentsID
+ * @apiName GetExperimentsByID
  * @apiGroup Experiments
  *
- * @apiParam {String} experimentID identifier of an experiment
- * @apiParam {String} workflow the name of the workflow the given experiment is associated with, e.g. 'ms2'
- * @apiParam {Boolean} [extends] returns detailed information about tasks, if present
- *
- * @apiSuccess {String} [wf_id] the workflow identifier, e.g., 'ms2'
- * @apiSuccess {String} [author] name of the author of the workflow
- * @apiSuccess {String} [optimization] optimization criterium, e.g., 'Time' or 'Performance'
- * @apiSuccess {String} [valueCurve] a value curve to be used by heuristics
- * @apiSuccess {Array}  [tasks] array of individal task data
- * @apiSuccess {String} [tasks.name] the task ID
- * @apiSuccess {String} [tasks.exec] pointer to the executable of the task
- * @apiSuccess {String} [tasks.cores_nr] dynamic range of CPU cores to be used for execution
- * @apiSuccess {String} [application] name of the workflow (for compatibility with EXCESS GUI)
- * @apiSuccess {String} [task] task name equals the workflow ID (for compatibility with EXCESS GUI)
- * @apiSuccess {String} [user] equals to author (for compatibility with EXCESS GUI)
- * @apiSuccess {String} timestamp the timestamp when the workflow was registered
- * @apiSuccess {String} [jobid] equals the experiment ID (for compatibility with EXCESS GUI)
+ * @apiParam {String} experimentID      Identifier of an experiment
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/dreamcloud/mf/experiments/AVZ-ll9FGYwmTvCuSnjW?workflow=ms2
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/experiments/AVZ-ll9FGYwmTvCuSnjW?workflow=ms2
+ *
+ * @apiSuccess {String} [application]  Name of the workflow
+ * @apiSuccess {String} [task]         Name of the task (sub-component of the workflow)
+ * @apiSuccess {String} [host]         Name of the target platform, where the experiment is conducted
+ * @apiSuccess {String} [timestamp]    Timestamp when the experiment is registered
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *        "wf_id": "MS2",
- *        "author": "Me",
- *        "optimization": "Time",
- *        "valueCurve": "[1000:100,2000:50,3000:10]",
- *        "tasks": [
- *           {
- *              "name": "T1",
- *              "exec": "/nas_home/hpcochep/DreamCloud/WFM/Apps/TestEmpty/T1.sh",
- *              "cores_nr": "1-40"
- *           },
- *           {
- *              "name": "T2.1",
- *              "exec": "/nas_home/hpcochep/DreamCloud/WFM/Apps/TestEmpty/T2.1.sh",
- *              "previous": "T1",
- *              "cores_nr": "1-40"
- *           },
- *           {
- *              "name": "T2.2",
- *              "exec": "/nas_home/hpcochep/DreamCloud/WFM/Apps/TestEmpty/T2.2.sh",
- *              "previous": "T1",
- *              "cores_nr": "1-40"
- *           },
- *           {
- *              "name": "T2.3",
- *              "exec": "/nas_home/hpcochep/DreamCloud/WFM/Apps/TestEmpty/T2.3.sh",
- *              "previous": "T1",
- *              "cores_nr": "1-40"
- *           },
- *           {
- *              "name": "T3",
- *              "exec": "/nas_home/hpcochep/DreamCloud/WFM/Apps/TestEmpty/T3.sh",
- *              "previous": "T2.1&&T2.2&&T2.3",
- *              "cores_nr": "1-40"
- *           }
- *        ],
  *        "application": "ms2",
- *        "task": "ms2",
- *        "user": "me",
- *        "@timestamp": "2016-08-12T13:49:59",
- *        "job_id": "AVZ-ll9FGYwmTvCuSnjW"
+ *        "task": "t1",
+ *        "host": "node01",
+ *        "@timestamp": "2016-08-12T13:49:59"
  *     }
  *
  * @apiError DatabaseError Elasticsearch specific error message.
  */
-router.get('/:id', function(req, res, next) {
+router.get('/:experimentID', function(req, res, next) {
     var client = req.app.get('elastic'),
-      id = req.params.id,
+      id = req.params.experimentID,
       workflow = req.query.workflow,
       json = {},
       size = 1000;
@@ -215,7 +172,10 @@ router.get('/:id', function(req, res, next) {
  * @apiName PostExperiments
  * @apiGroup Experiments
  *
- * @apiParam {String} workflowID identifier for the workflow for which the experiment shall be created, e.g. 'ms2'
+ * @apiParam {String} workflowID          Identifier for the workflow for which the experiment shall be created, e.g. 'ms2'
+ * @apiParam {String} [application]       Name of the application, same as the workflow ID
+ * @apiParam {String} [host]              Hostname of the target platform
+ * @apiParam {String} [author]            Author, like who is registering the experiment
  *
  * @apiExample {curl} Example usage:
  *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/experiments/ms2
@@ -223,20 +183,12 @@ router.get('/:id', function(req, res, next) {
  * @apiParamExample {json} Request-Example:
  *     {
  *       "application": "vector_scal01",
- *       "host": "fe.excess-project.eu",
- *       "user": "hpcfapix",
- *       "@timestamp": "2016-02-15T12:42:22.000",
- *       "job_id": "143249.fe.excess-project.eu"
+ *       "host": "node01",
+ *       "author": "hpcfapix"
  *     }
  *
- * @apiParam {String} [application] application name, provided while registering a new experiment
- * @apiParam {String} [host] hostname of the system
- * @apiParam {String} [user] username, like who is registering the experiment
- * @apiParam {String} timestamp timestamp, when the experiment is registered
- * @apiParam {String} [job_id] job identifier, provided while registering a new experiment
- *
- * @apiSuccess {Object} experimentID identifier of an experiment
- * @apiSuccess {String} experimentID.href link to the experiment
+ * @apiSuccess {Object} executionID       Identifier of the new registered experiment
+ * @apiSuccess {String} executionID.href  Link to the new registered experiment
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -245,10 +197,16 @@ router.get('/:id', function(req, res, next) {
  *         "href": "http://mf.excess-project.eu:3033/v1/phantom_mf/experiments/AVXt3coOz5chEwIt8_Ma?workflow=ms2"
  *       }
  *     }
+ * @apiError WorkflowNotFound No workflow as given is found.
  *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "No workflow as '" + workflowID + "' is found."
+ *     }
  */
-router.post('/:id', function(req, res, next) {
-    var id = req.params.id.toLowerCase(),
+router.post('/:workflowID', function(req, res, next) {
+    var id = req.params.workflowID.toLowerCase(),
       mf_server = req.app.get('mf_server'),
       client = req.app.get('elastic');
 
@@ -282,7 +240,7 @@ router.post('/:id', function(req, res, next) {
         }
         /*if no such workflow is found */
         else {
-            json.error = "No workflow as " + id +" is found";
+            json.error = "No workflow as " + id +" is found.";
             res.json(json);
         }
     }); 
