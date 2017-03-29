@@ -55,15 +55,6 @@ app.use('/v1/phantom_mf/profiles', profiles);
 app.use('/v1/phantom_mf/runtime', runtime);
 app.use('/v1/phantom_mf/statistics', statistics);
 
-/* following URL paths are TOD */
-app.use('/v1/phantom_mf/deployments', deployments);
-app.use('/v1/phantom_mf/energy', energy);
-app.use('/v1/phantom_mf/progress', progress);
-app.use('/v1/phantom_mf/report', report);
-app.use('/v1/phantom_mf/resources', resources);
-app.use('/v1/phantom_mf/status', status);
-app.use('/v1/phantom_mf/summary', summary);
-
 /* catch 404 and forward to error handler */
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
