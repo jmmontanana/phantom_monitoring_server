@@ -3,7 +3,7 @@
 > PHANTOM monitoring server is one part of the PHANTOM monitoring framework, which supports monitoring of performance and power metrics for heterogeneous platforms and hardwares. 
 
 
-## Motivation
+## Introduction
 The PHANTOM monitoring server is composed of two components: a web server and a data storage system. The web server provides various functionalities for data query and data analysis via RESTful APIs with documents in JSON format. The server's URL are "localhost:3033" by default.
 
 
