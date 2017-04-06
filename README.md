@@ -105,11 +105,6 @@ GET  /v1/phantom_mf/experiments
 GET  /v1/phantom_mf/experiments/:execution_id?workflow=:application_id
 POST /v1/phantom_mf/experiments/:application_id -d '{...}'
 
-# CONFIGS (TODO)
-GET  /v1/phantom_mf/configs
-GET  /v1/phantom_mf/configs/:platform_id
-PUT  /v1/phantom_mf/configs/:platform_id -d '{...}'
-
 # METRICS
 GET  /v1/phantom_mf/metrics/:application_id/:task_id/:execution_id
 POST /v1/phantom_mf/metrics -d '{...}'
@@ -138,6 +133,16 @@ GET /v1/phantom_mf/statistics/:application_id/:task_id/:execution_id?metric=...
 GET /v1/phantom_mf/statistics/:application_id/:task_id/:execution_id?metric=...&host=...
 GET /v1/phantom_mf/statistics/:application_id/:task_id/:execution_id?metric=...&from=...&to=...
 GET /v1/phantom_mf/statistics/:application_id/:task_id/:execution_id?metric=...&host=...&from=...&to=...
+
+# RESOURCES (Resource Manager)
+GET  /v1/phantom_rm/resources
+GET  /v1/phantom_rm/resources/:platform_id
+PUT  /v1/phantom_rm/resources/:platform_id -d '{...}'
+
+# CONFIGS (Resource Manager)
+GET  /v1/phantom_rm/configs
+GET  /v1/phantom_rm/configs/:platform_id
+PUT  /v1/phantom_rm/configs/:platform_id -d '{...}'
 ```
 
 Please refer to the [PHANTOM Monitoring API Web page][api] to get more details.
