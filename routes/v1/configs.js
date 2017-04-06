@@ -13,7 +13,7 @@ var router = express.Router();
  * @apiSuccess {String} platformID.metrics            Name and status (on/off) of metrics of the plugin
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/configs
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_rm/configs
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -95,10 +95,6 @@ router.get('/', function(req, res, next) {
     });
 });
 
-function is_defined(variable) {
-    return (typeof variable !== 'undefined');
-}
-
 function get_details(results) {
     var keys = Object.keys(results),
         response = {};
@@ -119,7 +115,7 @@ function get_details(results) {
  * @apiParam {String} platformID                  Unique platform identifier
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/configs/node01.excess-cluster
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_rm/configs/node01.excess-cluster
  *
  * @apiSuccess (body) {String} status             Status of the plugin (on/off)
  * @apiSuccess (body) {String} sampling_interval  Sampling interval of the plugin (in nanosecond)
@@ -174,7 +170,7 @@ router.get('/:platformID', function(req, res, next) {
 });
 
 /**
- * @api {put} /configs/:platformID 3. Updata the configuration of a specific platform
+ * @api {put} /configs/:platformID 3. Add/Updata the configuration of a specific platform
  * @apiVersion 1.0.0
  * @apiName PutConfigs
  * @apiGroup Configs
@@ -185,7 +181,7 @@ router.get('/:platformID', function(req, res, next) {
  * @apiParam {String} metrics            Name and status (on/off) of metrics of the plugin
  *
  * @apiExample {curl} Example usage:
- *     curl -i http://mf.excess-project.eu:3033/v1/phantom_mf/configs/node01.excess-cluster
+ *     curl -i http://mf.excess-project.eu:3033/v1/phantom_rm/configs/node01.excess-cluster
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -211,10 +207,10 @@ router.get('/:platformID', function(req, res, next) {
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "href": "http://mf.excess-project.eu:3033/v1/phantom_mf/configs/node01.excess-cluster",
+ *       "href": "http://mf.excess-project.eu:3033/v1/phantom_rm/configs/node01.excess-cluster",
  *     }
  *
- * @apiError StorageError Given workflow could not be stored.
+ * @apiError StorageError Given configuration could not be stored.
  *
  * @apiErrorExample Error-Response:
  *     HTTP/1.1 500 Internal Server Error
@@ -235,7 +231,7 @@ router.put('/:platformID', function(req, res, next) {
         body: req.body
     }, function(error, response) {
         if (error !== 'undefined') {
-            json.href = mf_server + '/phantom_mf/configs/' + platformID;
+            json.href = mf_server + '/phantom_rm/configs/' + platformID;
         } else {
             res.status(500);
             json.error = "Could not change the configuration.";

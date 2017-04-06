@@ -11,17 +11,18 @@ var elastic = new elasticsearch.Client({
   log: 'error'
 });
 
-/* basics */
+/* monitoring routes */
 var routes = require('./routes/v1/index');
 var workflows = require('./routes/v1/workflows');
 var experiments = require('./routes/v1/experiments');
-var configs = require('./routes/v1/configs');
-
-/* metrics details */
 var metrics = require('./routes/v1/metrics');
 var profiles = require('./routes/v1/profiles');
 var runtime = require('./routes/v1/runtime');
 var statistics = require('./routes/v1/statistics');
+
+/* resource manager routes */
+var configs = require('./routes/v1/configs');
+var resources = require('./routes/v1/resources');
 
 var app = express();
 app.set('views', path.join(__dirname, 'views'));
@@ -44,16 +45,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/* URL paths */
+/* monitoring URL paths */
 app.use('/', routes);
 app.use('/v1/phantom_mf', routes);
 app.use('/v1/phantom_mf/workflows', workflows);
 app.use('/v1/phantom_mf/experiments', experiments);
-app.use('/v1/phantom_mf/configs', configs);
 app.use('/v1/phantom_mf/metrics', metrics);
 app.use('/v1/phantom_mf/profiles', profiles);
 app.use('/v1/phantom_mf/runtime', runtime);
 app.use('/v1/phantom_mf/statistics', statistics);
+
+/*resource manager URL paths */
+app.use('/v1/phantom_rm/resources', resources);
+app.use('/v1/phantom_rm/configs', configs);
 
 /* catch 404 and forward to error handler */
 app.use(function(req, res, next) {

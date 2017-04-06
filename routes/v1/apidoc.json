@@ -8,13 +8,14 @@
     "title": "PHANTOM Monitoring API"
   },
   "order": [
-    "Configs",
     "Workflows",
     "Experiments",
     "Runtime",
     "Profiles",
     "Metrics",
-    "Statistics"
+    "Statistics",
+    "Resources",
+    "Configs"
   ],
   "template": {
   	"withCompare": true,
