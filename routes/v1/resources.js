@@ -5,7 +5,7 @@ var router = express.Router();
  * @api {get} /resources 1. Get a list of resources links and avaiable platforms
  * @apiVersion 1.0.0
  * @apiName GetResources
- * @apiGroup Resources
+ * @apiGroup RM_Resources
  *
  * @apiExample {curl} Example usage:
  *     curl -i http://mf.excess-project.eu:3033/v1/phantom_rm/resources
@@ -92,7 +92,7 @@ function get_resource(mf_server, results) {
  * @api {get} /resources/:platformID 2. Get resource information for a given platform
  * @apiVersion 1.0.0
  * @apiName GetResourcesByPlatformID
- * @apiGroup Resources
+ * @apiGroup RM_Resources
  *
  * @apiParam {String} platformID                  Unique platform identifier
  * 
@@ -161,7 +161,7 @@ router.get('/:platformID', function(req, res, next) {
  * @api {put} /resources/:platformID 3. Add/Update resource information for a given platform
  * @apiVersion 1.0.0
  * @apiName PutResources
- * @apiGroup Resources
+ * @apiGroup RM_Resources
  *
  * @apiParam {String} platformID         Unique platform identifier
  * @apiParam {String} [id]               Unique identifier of the resource

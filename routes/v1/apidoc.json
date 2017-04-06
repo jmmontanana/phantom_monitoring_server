@@ -14,8 +14,8 @@
     "Profiles",
     "Metrics",
     "Statistics",
-    "Resources",
-    "Configs"
+    "RM_Resources",
+    "RM_Configs"
   ],
   "template": {
   	"withCompare": true,

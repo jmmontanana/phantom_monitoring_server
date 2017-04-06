@@ -5,7 +5,7 @@ var router = express.Router();
  * @api {get} /configs 1. Get a list of configurations of all platforms
  * @apiVersion 1.0.0
  * @apiName GetConfigs
- * @apiGroup Configs
+ * @apiGroup RM_Configs
  *
  * @apiSuccess {Object} platformID                    Unique platform identifier
  * @apiSuccess {String} platformID.status             Status of the plugin (on/off)
@@ -110,7 +110,7 @@ function get_details(results) {
  * @api {get} /configs/:platformID 2. Get the configuration of a specific platform
  * @apiVersion 1.0.0
  * @apiName GetConfigsByPlatformID
- * @apiGroup Configs
+ * @apiGroup RM_Configs
  *
  * @apiParam {String} platformID                  Unique platform identifier
  *
@@ -173,7 +173,7 @@ router.get('/:platformID', function(req, res, next) {
  * @api {put} /configs/:platformID 3. Add/Updata the configuration of a specific platform
  * @apiVersion 1.0.0
  * @apiName PutConfigs
- * @apiGroup Configs
+ * @apiGroup RM_Configs
  *
  * @apiParam {String} platformID         Unique platform identifier
  * @apiParam {String} status             Status of the plugin (on/off)
