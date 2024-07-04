@@ -20,7 +20,7 @@
     "elasticsearch": "~10.1.2",
     "request": "~2.69.0",
     "async": "~1.5.2",
-    "moment": "~2.11.2"
+    "moment": "~2.30.1"
   },
   "devDependencies": {
     "standard": "~5.4.1",
