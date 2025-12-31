@@ -16,7 +16,7 @@
     "jade": "~1.11.0",
     "morgan": "1.9.1",
     "basic-auth-connect": "~1.0.0",
-    "serve-favicon": "~2.3.0",
+    "serve-favicon": "~2.5.0",
     "elasticsearch": "~10.1.2",
     "axios": "^0.21.1"
     "async": "~1.5.2",
