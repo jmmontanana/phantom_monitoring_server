@@ -20,6 +20,8 @@
     "basic-auth-connect": "~1.0.0",
     "serve-favicon": "~2.5.0",
     "elasticsearch": "~10.1.2",
+    "request": "~2.69.0",
+    "async": "~3.2.6",
     "request": "~2.88.2",
     "axios": "^0.21.1"
     "async": "~1.5.2",
